@@ -5,22 +5,58 @@ Natural Language Understanding for Emotion Classification
 The goal of this project is to develop a Natural Language Understanding (NLU) algorithm for classifying the underlying emotion associated with a chat message so that chatbots and other programs can use this information to deliver a better experience to users.
 
 # Background
-People have goals that are explicit and implicit. Explicit goals are usually easy to identify because a person can clearly articulate them, like buying groceries, resolving a billing issue, traveling to the beach, updating a software, etc. Implicit goals, on the other hand, are more difficult to identify. These are emotional goals that aren't always articulated even though the achievement of these emotional goals are often more valuable than the explicit goals. Not only does a person want to buy groceries, they also want to feel good about the experience.  If they don't, then they may never return to that grocery store again.
-
-Many NLU pipelines have been designed and refined to determine explicit goals.  For example, intent and entity extaction is used to determine a person's explicit goal within a specific context.  But there hasn't been a lot of work to determine implicit goals to determine their current emotional state and guide them to a positive emotional state by the end of an interaction.
+People have goals that are explicit and implicit. Explicit goals are usually easy to identify because a person can clearly articulate them, like buying groceries, resolving a billing issue, traveling to the beach, updating a software, etc. Implicit goals, on the other hand, are more difficult to identify. These are emotional goals that aren't always articulated even though the achievement of these emotional goals is often more valuable than the explicit goals. Not only does a person want to buy groceries, they also want to feel good about the experience.  If they don't, then they may never return to that grocery store again.
 
 It requires emotional intelligence to accurately recognize emotions. As we all know from customer service interactions, not all people have this level of emotional intelligence. If a program can automate this emotional classification process, then organizations could use this information to dramatically improve a wide variety of service encounters acorss industries.
 
 # Use Case
-The specific application of this classification algorithm will be for the NLU pipeline of an emotionally intelligence chatbot.  The algorithm classifies the general emotion associated with the message and then identifies the approproate custom emoji that represents that emotion.  You can demo the algorith here.
+The specific application of this classification algorithm will be for the NLU pipeline of an emotionally intelligent chatbot.  The algorithm classifies the general emotion associated with the message and then identifies the approproate custom emoji that represents that emotion.  A demo of the chatbot is coming soon.
 
 Proposed NLU Pipeline for Understanding Implicit Goals
 
+# Dataset
+I will be using the [DailyDialogue](http://yanran.li/dailydialog) dataset compiled for the International Joint Conference on Natural Language Processing (IJCNLP) in Taipei, Taiwan by Yanran Li, Hui Su, and Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu.
 
-# Process
-Cleaning
-EDA
-Feature Engineering
-Modeling
-Evaluation
-Findings
+This is a very thorough dataset that includes over 13,000 conversations and over 100,000 utterances.  Each conversation has been manually categroized by a topic while each utterance additionally categorized with an emotion and a statement type.
+* ***Dialogue: string.  One utterance per row.***
+* ***Emotion: int. The emotion associated with the text.***
+    * 0: No emotion
+    * 1: Anger
+    * 2: Disgust
+    * 3: Fear
+    * 4: Happiness
+    * 5: Sadness
+    * 6: Surprise
+* ***Type: int. The type of utterance.***
+    * 1: Inform
+    * 2: Question
+    * 3: Directive
+    * 4: Commissive
+* ***Topic: The general topic of the conversation.***
+    * 1: Ordinary Life
+    * 2: School Life
+    * 3: Culture & Education
+    * 4: Attitude & Emotion
+    * 5: Relationship
+    * 6: Tourism
+    * 7: Health
+    * 8: Work
+    * 9: Politics
+    * 10: Finance
+
+# Process & Repository Contents
+* ***Cleaning:*** Cleaning the dataset in preparation of baseline modeling.
+  * [emotion_ai_cleaning.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_cleaning.ipynb)
+* ***Baselines:**** Baseline modeling with several multi-class machine learning classification models to guide EDA and Feature Engineering.
+  * [emotion_ai_baseline_modeling.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
+* ***Exploratory Data Analysis:*** Analysis of the dataset and visualizations to communicate insights. 
+  * [emotion_ai_eda.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
+* ***Feature Engineering:*** Engineering of specific features beyound text tokens to improve predictability.
+  * notebook coming soon
+* ***Modeling & Evaluation:*** Modeling using the new features to examine their impact and identify the best model.
+  * notebook coming soon
+* ***Findings:*** 
+  * Emotional AI Presentation PDF
+  * Blog Post Coming Soon
+  * Pipeline Coming Soon
+  * Trained Model Coming Soon
