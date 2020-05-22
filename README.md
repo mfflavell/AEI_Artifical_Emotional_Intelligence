@@ -14,10 +14,10 @@ The specific application of this classification algorithm will be for the NLU pi
 
 Proposed NLU Pipeline for Understanding Implicit Goals
 
-# Dataset
-I will be using the [DailyDialogue](http://yanran.li/dailydialog) dataset compiled for the International Joint Conference on Natural Language Processing (IJCNLP) in Taipei, Taiwan by Yanran Li, Hui Su, and Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu.
+# Datasets
+My primary dataset is the [DailyDialogue](http://yanran.li/dailydialog) dataset compiled for the International Joint Conference on Natural Language Processing (IJCNLP) in Taipei, Taiwan by Yanran Li, Hui Su, and Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu.
 
-This is a very thorough dataset that includes over 13,000 conversations and over 100,000 utterances.  Each conversation has been manually categroized by a topic while each utterance additionally categorized with an emotion and a statement type.
+This is a very thorough dataset that includes over 13,000 conversations and over 100,000 utterances.  Each conversation has been manually categroized by a topic while each utterance is additionally categorized with an emotion and a statement type.  For the purposes of this model, which I intend to put into the NLU pipeline of a chatbot, I'm only interested in the emotion classification because I won't be asking users to classify their own messages with a topic and an utterance type (although that would be an interesting classification project for the future).  However, I will include the topics and types below so you can see the diversity of utterances provided.
 * ***Dialogue: string.  One utterance per row.***
 * ***Emotion: int. The emotion associated with the text.***
     * 0: No emotion
@@ -44,8 +44,13 @@ This is a very thorough dataset that includes over 13,000 conversations and over
     * 9: Politics
     * 10: Finance
 
+Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  To address this imbalance, I decided to source two additional datasets that I could use to combine with DailyDialog: a set built from the PushShift API for Reddit and an additional set that I personally developed with the specific use case of an emotional chatbot in mind.
+
+
+
+
 # Process & Repository Contents
-* ***Cleaning:*** Cleaning the dataset in preparation of baseline modeling.
+* ***Cleaning:*** Cleaning the datasets in preparation for modeling.
   * [emotion_ai_cleaning.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_cleaning.ipynb)
 * ***Baselines:**** Baseline modeling with several multi-class machine learning classification models to guide EDA and Feature Engineering.
   * [emotion_ai_baseline_modeling.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
