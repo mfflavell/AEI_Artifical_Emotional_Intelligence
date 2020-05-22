@@ -52,7 +52,7 @@ This is a very thorough dataset that includes over 13,000 conversations and over
 * ***Exploratory Data Analysis:*** Analysis of the dataset and visualizations to communicate insights. 
   * [emotion_ai_eda.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
 * ***Feature Engineering:*** Engineering of specific features beyound text tokens to improve predictability.
-  * notebook coming soon
+  * [emotion_ai_feature_engineering.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_feature_engineering.ipynb)
 * ***Modeling & Evaluation:*** Modeling using the new features to examine their impact and identify the best model.
   * notebook coming soon
 * ***Findings:*** 
@@ -60,3 +60,7 @@ This is a very thorough dataset that includes over 13,000 conversations and over
   * Blog Post Coming Soon
   * Pipeline Coming Soon
   * Trained Model Coming Soon
+  
+# Findings & Next Steps
+
+Based on the initial performance of the baseline models, it's clear there is a significant class imbalance which needs to be addressed before I continue to model.  I plan to address this by undersampling the majority class (no emotion).  Also there are opportunities for engineering features that capture more meaning from utterances and could improve classification performance.
