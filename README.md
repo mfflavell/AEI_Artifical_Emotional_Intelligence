@@ -44,15 +44,15 @@ This is a very thorough dataset that includes over 13,000 conversations and over
     * 9: Politics
     * 10: Finance
 
-Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  To address this imbalance, I decided to source two additional datasets that I could use to combine with DailyDialog: a set built from the PushShift API for Reddit and an additional set that I personally developed with the specific use case of an emotional chatbot in mind.
+Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  To address this imbalance, I decided to source two additional datasets that I could use to combine with DailyDialog: a set built from the PushShift API for Reddit and an additional Happy Path dataset that I personally developed with the specific use case of an emotional chatbot in mind.
 
-
-
+image of class imbalance and image of balanced classes.
 
 # Process & Repository Contents
-* ***Cleaning:*** Cleaning the datasets in preparation for modeling.
-  * [emotion_ai_cleaning.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_cleaning.ipynb)
-* ***Baselines:**** Baseline modeling with several multi-class machine learning classification models to guide EDA and Feature Engineering.
+* ***Sourcing & Cleaning:*** Sourcing & cleaning the datasets in preparation for modeling.
+  * [emotion_ai_cleaning.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_cleaning.ipynb): cleaning the DailyDialog dataset.
+  * [emotion_ai_pushshift_api_cleaning.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_pushshift_api_cleaning.ipynb): PushShift Reddit API & Happy Path Dataset.
+* ***Baseline Modeling:**** Baseline modeling with several multi-class machine learning classification models to guide EDA and Feature Engineering.
   * [emotion_ai_baseline_modeling.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
 * ***Exploratory Data Analysis:*** Analysis of the dataset and visualizations to communicate insights. 
   * [emotion_ai_eda.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_eda.ipynb)
