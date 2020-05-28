@@ -46,20 +46,30 @@ This is a very thorough dataset that includes over 13,000 conversations and over
 
 Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  
 
-<img src="images/emotion_ai_class_imbalance2.png" width="500" height="500" />
+<img src="images/emotion_ai_class_imbalance2.png" width="500" height="400" />
 
 To address this imbalance, I decided to source additional data that I could use to supplement DailyDialog: a set compiled from the [PushShift API](https://github.com/pushshift/api) for Reddit and an additional Happy Path dataset that I personally developed with the specific use case of an emotional chatbot in mind.  The finalized dataset combines a random sampling of the DailyDialog and the Reddit comments with the Happy Path sentence templates containing emotion keywords.  The result is a smaller dataset with a little over 21,000 instances, but they are quality examples of emotion expression.
 
 I wanted to make sure this updated dataset included simple utterances with emotion keywords (Happy Path), simple utterances without obvious emotion keywords (DailyDialog) as well as long, and often rambling, vents about a person's feelings (Reddit).  My hope is that training the classification model on these different types of utterances woudld make it less likely to output a false prediction.  
 
 
-<img src="images/emotion_ai_master_updated_class_dist.png" width="500" height="500" />
+<img src="images/emotion_ai_master_updated_class_dist.png" width="500" height="400" />
 
 # Feature Engineering
 
 Feature engineering is still a work in progress.  I completed a punctuation calculator, a capitalization ratio, and an emotion score.  The feature with the most promise is the emotion score which currently relies on the [NRC Exmotion Lexicon](http://sentiment.nrc.ca/lexicons-for-research/).  This lexicon contains keywords associated with my emotion classes as well as an intensity score between 0 and 1.  For example, "outrage" has an anger intensity score of 0.98 while "grumpy" has an anger intensity score of 0.3.
 
 The calculator efficiently calculates the emotion scores for each utterance and ranks the emotions from highest intensity to lowest.  The downside is the lexicon.  It isn't currently robust enough to effectively score sentences from DailyDialog or Reddit, which use a more common, everyday vocabulary.  To make this feature as powerful as it could be, I need to update the lexicon to include more words.  Other challenges are detailed in the feature engineering notebook.
+
+# Pipeline
+
+<img src="images/emotion_ai_pipeline.png" width="700" height="400" />
+
+The pipeline follows the progression outlined above.  
+* The user's raw message is automatically analyzed using several feature functions to determine the punctuation calculation, the capitalization ratio and the emotion score.  
+* Then the utterance is automatically converted to lowercase, punctuation is removed, words are lemmatized to their root words, and contractions are expanded. This pre-processing will make it easier to tokenize and vectorize the utterance.  
+* The count vector determines the number of each word in the utterance out of all the words the words in the training corpus.  The TF-IDF vectorizer gives each word a score to determine how relevant it is based on its frequency across all utterances in the training set.  
+* Then this vector is fed into the model with the additional features engineered and the prediction is output as well as dialogue based on the prediciton.
 
 
 # Process & Repository Contents
@@ -109,4 +119,4 @@ The model fails when handling large utterances that contain complex sentence str
 
 # Upcoming Projects
 
-I want to continue on this trend to develop a machine learning model that can effectively paraphrase a person's explanation of the causes and consequences of their emotions, which will enhance conversation with users and provide a way of gathering more contextual data to train more sophisticated emotion classifiers.
+I want to continue down this path to develop a machine learning model that can effectively paraphrase a person's explanation of the causes and consequences of their emotions, which will enhance conversation with users and provide a way of gathering more contextual data to train more sophisticated emotion classifiers.
