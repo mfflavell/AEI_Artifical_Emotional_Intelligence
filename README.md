@@ -46,13 +46,14 @@ This is a very thorough dataset that includes over 13,000 conversations and over
 
 Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  
 
-![](images/emotion_ai_class_imbalance2.png)
+<img src="images/emotion_ai_class_imbalance2.png" width="500" height="500" />
 
 To address this imbalance, I decided to source additional data that I could use to supplement DailyDialog: a set compiled from the [PushShift API](https://github.com/pushshift/api) for Reddit and an additional Happy Path dataset that I personally developed with the specific use case of an emotional chatbot in mind.  The finalized dataset combines a random sampling of the DailyDialog and the Reddit comments with the Happy Path sentence templates containing emotion keywords.  The result is a smaller dataset with a little over 21,000 instances, but they are quality examples of emotion expression.
 
 I wanted to make sure this updated dataset included simple utterances with emotion keywords (Happy Path), simple utterances without obvious emotion keywords (DailyDialog) as well as long, and often rambling, vents about a person's feelings (Reddit).  My hope is that training the classification model on these different types of utterances woudld make it less likely to output a false prediction.  
 
-![](images/emotion_ai_master_updated_class_dist.png)
+
+<img src="images/emotion_ai_master_updated_class_dist.png" width="500" height="500" />
 
 # Feature Engineering
 
@@ -83,7 +84,7 @@ After addressing the class imbalance in the DailyDialog dataset and making a new
 
 As you can see below, there is a marked improvement from the stratified dummy classifer which is essentialy the expected success rate of guessing the classification.
 
-![](images/emotion_ai_model_accuracy.png)
+<img src="images/emotion_ai_model_accuracy.png" width="550" height="400" />
 
 The goal here is to build a model that's good enough to put into production for a beta phase where I can test the model within a chatbot framework and gather more and more user data to train new models.
 
