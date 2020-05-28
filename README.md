@@ -44,9 +44,22 @@ This is a very thorough dataset that includes over 13,000 conversations and over
     * 9: Politics
     * 10: Finance
 
-Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  To address this imbalance, I decided to source two additional datasets that I could use to combine with DailyDialog: a set built from the PushShift API for Reddit and an additional Happy Path dataset that I personally developed with the specific use case of an emotional chatbot in mind.
+Although DailyDialog is thorough, it unfortunately has a significant class imbalance between the "no emotion" class and the other emotion classes.  
 
-image of class imbalance and image of balanced classes.
+![](images/emotion_ai_class_imbalance2.png)
+
+To address this imbalance, I decided to source additional data that I could use to supplement DailyDialog: a set compiled from the [PushShift API](https://github.com/pushshift/api) for Reddit and an additional Happy Path dataset that I personally developed with the specific use case of an emotional chatbot in mind.  The finalized dataset combines a random sampling of the DailyDialog and the Reddit comments with the Happy Path sentence templates containing emotion keywords.  The result is a smaller dataset with a little over 21,000 instances, but they are quality examples of emotion expression.
+
+I wanted to make sure this updated dataset included simple utterances with emotion keywords (Happy Path), simple utterances without obvious emotion keywords (DailyDialog) as well as long, and often rambling, vents about a person's feelings (Reddit).  My hope is that training the classification model on these different types of utterances woudld make it less likely to output a false prediction.  
+
+![](images/emotion_ai_master_updated_class_dist.png)
+
+# Feature Engineering
+
+Feature engineering is still a work in progress.  I completed a punctuation calculator, a capitalization ratio, and an emotion score.  The feature with the most promise is the emotion score which currently relies on the [NRC Exmotion Lexicon](http://sentiment.nrc.ca/lexicons-for-research/).  This lexicon contains keywords associated with my emotion classes as well as an intensity score between 0 and 1.  For example, "outrage" has an anger intensity score of 0.98 while "grumpy" has an anger intensity score of 0.3.
+
+The calculator efficiently calculates the emotion scores for each utterance and ranks the emotions from highest intensity to lowest.  The downside is the lexicon.  It isn't currently robust enough to effectively score sentences from DailyDialog or Reddit, which use a more common, everyday vocabulary.  To make this feature as powerful as it could be, I need to update the lexicon to include more words.  Other challenges are detailed in the feature engineering notebook.
+
 
 # Process & Repository Contents
 * ***Sourcing & Cleaning:*** Sourcing & cleaning the datasets in preparation for modeling.
@@ -59,13 +72,40 @@ image of class imbalance and image of balanced classes.
 * ***Feature Engineering:*** Engineering of specific features beyound text tokens to improve predictability.
   * [emotion_ai_feature_engineering.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_feature_engineering.ipynb)
 * ***Modeling & Evaluation:*** Modeling using the new features to examine their impact and identify the best model.
-  * notebook coming soon
+  * [emotion_ai_modeling_evaluation.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_modeling_evaluation.ipynb)
 * ***Findings:*** 
-  * Emotional AI Presentation PDF
+  * [Emotional AI Presentation PDF](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai.pdf)
   * Blog Post Coming Soon
-  * Pipeline Coming Soon
-  * Trained Model Coming Soon
   
-# Findings & Next Steps
+# Findings
 
-Based on the initial performance of the baseline models, it's clear there is a significant class imbalance which needs to be addressed before I continue to model.  I plan to address this by undersampling the majority class (no emotion).  Also there are opportunities for engineering features that capture more meaning from utterances and could improve classification performance.
+After addressing the class imbalance in the DailyDialog dataset and making a new, more accurate dataset that captures a wider range of emotion and provides a wider variety of utterance types, I was able to train several models and evaluate their effectiveness.  The best model was a logistic regression model that achieved 80% accuracy with an F1-Score of 0.8.  I focused primarily on the F1-Score because the cost of a false negative and a false positive are essentially the same - both result in a false prediction for the user.  I also focused on accuracy because I want to see how effective overall the model is at outputting an accurate prediction while understanding that the accuracy of predictions vary by emotion class.
+
+As you can see below, there is a marked improvement from the stratified dummy classifer which is essentialy the expected success rate of guessing the classification.
+
+![](images/emotion_ai_model_accuracy.png)
+
+The goal here is to build a model that's good enough to put into production for a beta phase where I can test the model within a chatbot framework and gather more and more user data to train new models.
+
+The model does well as classifying utterances containing emotion keywords like "down" for sad.  
+
+![](images/emotion_ai_keyword_demo.gif)
+
+The model also does relatively well on short utterances that don't contain keywords.
+
+![](images/emotion_ai_edge_demo.gif)
+
+The model fails when handling large utterances that contain complex sentence structure and mention of several different emotions.  My hope is that the emotion score feature could help to improve the model's effectiveness in this regard.
+
+# Next Steps
+
+* Improve the emotion score calculator by updating the NRC emotion lexicon to include a wider variety of vocabulary.
+* Train the data on a neural network to see if this improves the F1-score and accuracy.
+* Input the trained model into a chatbot framework, like Rasa, and integrate the bot into a messaging service that would be easy to access, like Slack or Telegram.
+* Set up a database to collect new inputs with their classifications and validations.
+* Launch a beta phase to friends and family to gather as much new user data as possible and gain a more precise understanding of the model's weaknesses and strengths.
+* Address weaknesses with new features and better models.
+
+# Upcoming Projects
+
+I want to continue on this trend to develop a machine learning model that can effectively paraphrase a person's explanation of the causes and consequences of their emotions, which will enhance conversation with users and provide a way of gathering more contextual data to train more sophisticated emotion classifiers.
