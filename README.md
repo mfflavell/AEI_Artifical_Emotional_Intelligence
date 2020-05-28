@@ -75,7 +75,7 @@ The calculator efficiently calculates the emotion scores for each utterance and 
 * ***Modeling & Evaluation:*** Modeling using the new features to examine their impact and identify the best model.
   * [emotion_ai_modeling_evaluation.ipynb](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_modeling_evaluation.ipynb)
 * ***Findings:*** 
-  * [Emotional AI Presentation PDF](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai.pdf)
+  * [Emotional AI Presentation PDF](https://github.com/Frankafka/emotionalAI/blob/master/emotion_ai_deck.pdf)
   * Blog Post Coming Soon
   
 # Findings
