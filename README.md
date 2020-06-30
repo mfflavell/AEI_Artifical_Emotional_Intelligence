@@ -5,14 +5,12 @@ Natural Language Understanding for Emotion Classification
 The goal of this project is to develop a Natural Language Understanding (NLU) algorithm for classifying the underlying emotion associated with a chat message so that chatbots and other programs can use this information to deliver a better experience to users.
 
 # Background
-People have goals that are explicit and implicit. Explicit goals are usually easy to identify because a person can clearly articulate them, like buying groceries, resolving a billing issue, traveling to the beach, updating a software, etc. Implicit goals, on the other hand, are more difficult to identify. These are emotional goals that aren't always articulated even though the achievement of these emotional goals is often more valuable than the explicit goals. Not only does a person want to buy groceries, they also want to feel good about the experience.  If they don't, then they may never return to that grocery store again.
+People have goals that are explicit and implicit. Explicit goals are usually easy to identify because a person can clearly articulate them, like buying groceries or resolving a billing issue. Implicit goals, on the other hand, are more difficult to identify. These are emotional goals that aren't always articulated even though they are often more valuable than explicit goals. Not only does a person want to buy groceries, they also want to feel good about the experience.  If they don't, then they may never return to that grocery store again.
 
-It requires emotional intelligence to accurately recognize emotions. As we all know from customer service interactions, not all people have this level of emotional intelligence. If a program can automate this emotional classification process, then organizations could use this information to dramatically improve a wide variety of service encounters acorss industries.
+It requires emotional intelligence to accurately recognize emotions. As we all know from customer service interactions, not everyone has this level of emotional intelligence. If a program can automate this emotional classification process, then organizations could use this information to dramatically improve a wide variety of service encounters across industries.
 
 # Use Case
-The specific application of this classification algorithm will be for the NLU pipeline of an emotionally intelligent chatbot.  The algorithm classifies the general emotion associated with the message and then identifies the approproate custom emoji that represents that emotion.  A demo of the chatbot is coming soon.
-
-Proposed NLU Pipeline for Understanding Implicit Goals
+The specific application of this classification algorithm will be for the NLU pipeline of an emotionally intelligent chatbot.  A demo of the chatbot is coming soon.
 
 # Datasets
 My primary dataset is the [DailyDialogue](http://yanran.li/dailydialog) dataset compiled for the International Joint Conference on Natural Language Processing (IJCNLP) in Taipei, Taiwan by Yanran Li, Hui Su, and Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu.
@@ -90,13 +88,13 @@ The pipeline follows the progression outlined above.
   
 # Findings
 
-After addressing the class imbalance in the DailyDialog dataset and making a new, more accurate dataset that captures a wider range of emotion and provides a wider variety of utterance types, I was able to train several models and evaluate their effectiveness.  The best model was a logistic regression model that achieved 80% accuracy with an F1-Score of 0.8.  I focused primarily on the F1-Score because the cost of a false negative and a false positive are essentially the same - both result in a false prediction for the user.  I also focused on accuracy because I want to see how effective overall the model is at outputting an accurate prediction while understanding that the accuracy of predictions vary by emotion class.
+After addressing the class imbalance in the DailyDialog dataset and making a new, more accurate dataset that captures a wider range of emotion and provides a wider variety of utterance types, I was able to train several models and evaluate their effectiveness.  The best model was a logistic regression that achieved 80% accuracy with an F1-Score of 0.8.  I focused primarily on the F1-Score because the cost of a false negative and a false positive are essentially the same - both result in a false prediction for the user.  I also focused on accuracy because I want to see how effective overall the model is at outputting an accurate prediction while understanding that the accuracy of predictions vary by emotion class.
 
 As you can see below, there is a marked improvement from the stratified dummy classifer which is essentialy the expected success rate of guessing the classification.
 
 <img src="images/emotion_ai_model_accuracy.png" width="550" height="400" />
 
-The goal here is to build a model that's good enough to put into production for a beta phase where I can test the model within a chatbot framework and gather more and more user data to train new models.
+The goal here is to build a model that's good enough to put into production for a beta phase where I can test the model within a chatbot framework and gather more user data to train new models.
 
 The model does well as classifying utterances containing emotion keywords like "down" for sad.  
 
