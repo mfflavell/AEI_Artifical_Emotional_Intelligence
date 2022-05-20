@@ -1,4 +1,4 @@
-# emotionalAI
+# (AEI) Artificial Emotional Intelligence
 Natural Language Understanding for Emotion Classification
 
 # Project
